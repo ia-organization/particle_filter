@@ -1,4 +1,4 @@
-
+import random
 
 class Particle:
     def __init__(self, x, y, theta, velocity, dist = None, norm_dist = None, timestamp = None):
@@ -13,4 +13,10 @@ class Particle:
 
 
     def sample_motion_model(delta_time, particle_t_1, mean, mean_particle):
-        ##todo
+        velocity = particle_t_1.velocity
+
+        x = particle_t_1.x
+        y = particle_t_1.y
+        theta = particle_t_1.theta
+
+        velocity = velocity + random.gauss(0.0,mean)
