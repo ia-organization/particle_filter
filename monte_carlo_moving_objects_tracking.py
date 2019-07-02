@@ -119,4 +119,59 @@ def measurement_model(x, y, lst_particles):
         lst_particles[i].weight = (lst_particles[i].weight/ sum_weights)
 
 
+def resample(lst_particles):
+    num_particles = lst_particles.length()
+    sum_weights = 0.0
+    lst_cumulative_sum = []
+    
+    copy_particle_set_t = lst_particles[:]
+
+    temp_particles = [None for i in range(num_particles)]
+
+    for i in range(num_particles):
+        sum_weights+= lst_particles[i].weight
+        lst_cumulative_sum.append(sum_weights)
+    
+    position = random.randint(0,sum_weights)
+    step_size = sum_weights/num_particles
+    wich_particle = 0
+
+    for i in range(num_particles):
+		position += step_size
+
+		if (position > sum_weights):
+			position -= sum_weights
+			which_particle = 0
+		
+		while(position > lst_cumulative_sum[which_particle]):
+			which_particle+=1
+
+		temp_particles[i] = copy_particle_set_t[which_particle]
+
+    aux = copy_particle_set_t[:]
+    copy_particle_set_t = temp_particles[:]
+    temp_particles = aux[:]
+
+    lst_particles = copy_particle_set_t[:]
+
+
+def algorithm_monte_carlo(lst_particles ,x , y, delta_time):
+
+    #predição   
+    temp_particles_set = []
+
+    for particle in temp_particles_set:
+        particle.sample_motion_model(delta_time)
+        temp_particles_set.append(particle)
+
+    #observação
+    measurement_model(x,y,temp_particles_set)
+
+    #resampling
+    resample(temp_particles_set)
+
+    particle_set_t = temp_particles_set[:]
+
+    return particle_set_t    
+
 
