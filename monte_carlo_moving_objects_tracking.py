@@ -53,8 +53,8 @@ class Particle:
         # x = x + delta_time* velocity * math.cos(theta)
         # y = y + delta_time* velocity * math.sin(theta)
 
-        x = x + x * velocity_x * delta_time
-        y = y + y * velocity_y * delta_time
+        x = x + velocity_x * delta_time
+        y = y + velocity_y * delta_time
 
         
         velocity_x = velocity_x + random.gauss(0.0,alpha_1)
