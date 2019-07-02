@@ -155,6 +155,27 @@ def resample(lst_particles):
     lst_particles = copy_particle_set_t[:]
 
 
+
+def compute_average_state(lst_particles):
+    total_weight = 0.0
+    # compute mean particle pose
+	
+    mean_x = 0.0
+    mean_y = 0.0
+    mean_velocity_x = 0.0
+    mean_velocity_y = 0.0
+
+    for particle in lst_particles:
+        mean_x += particle.x * particle.weight 
+        mean_y += particle.y * particle.weight
+        mean_velocity_x += particle.velocity_x * particle.weight 
+        mean_velocity_x += particle.velocity_x * particle.weight 
+        total_weight += particle.weight 
+
+    mean_particle = Particle(mean_x,mean_y,None,mean_velocity_x,mean_velocity_y)
+    return mean_particle
+
+
 def algorithm_monte_carlo(lst_particles ,x , y, delta_time):
 
     #predição   
@@ -173,5 +194,4 @@ def algorithm_monte_carlo(lst_particles ,x , y, delta_time):
     particle_set_t = temp_particles_set[:]
 
     return particle_set_t    
-
 
